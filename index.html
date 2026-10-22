@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AirtimePro</title>
+<style>
+:root{--bg:#f6f4f4;--card:#fff;--tx:#1b1416;--mut:#76686c;--bd:#ece6e7;--r:#e4002b;--r2:#b80022;--g:#1fa84a;--blk:#121212;--warn:#fff1d2;--warnt:#6b4e00;--soft:#fdeaee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120d0e;--card:#1d1517;--tx:#f5ecee;--mut:#b09ca1;--bd:#31262a;--g:#35cf63;--blk:#000;--warn:#3a3112;--warnt:#f3d98a;--soft:#2c1419}}
+:root[data-theme="dark"]{--bg:#120d0e;--card:#1d1517;--tx:#f5ecee;--mut:#b09ca1;--bd:#31262a;--g:#35cf63;--blk:#000;--warn:#3a3112;--warnt:#f3d98a;--soft:#2c1419}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:18px/1.5 "Times New Roman",Times,serif}
+.w{max-width:560px;margin:0 auto;padding:14px 14px calc(92px + env(safe-area-inset-bottom,0px))}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.av{width:42px;height:42px;border-radius:50%;background:var(--r);color:#fff;display:grid;place-items:center;font-weight:800}
+.top b{display:block}.top small{color:var(--mut)}.top .sp{flex:1}
+.ib{width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:1.1rem;cursor:pointer}
+.wal{background:var(--blk);color:#fff;border-radius:18px;padding:18px;margin-bottom:14px;background-image:radial-gradient(circle at 90% 0,rgba(228,0,43,.55),transparent 55%)}
+.wal small{opacity:.7}.wal .amt{font-size:2rem;font-weight:800;margin:2px 0 12px}
+.wb{display:flex;gap:8px}.wb button{flex:1;padding:11px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+.ban{background:linear-gradient(120deg,var(--r),var(--r2));color:#fff;border-radius:16px;padding:14px;margin-bottom:14px}.ban b{font-size:1.05rem}.ban p{margin:2px 0 0;opacity:.92;font-size:.9rem}
+.nets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.nt{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:10px 4px;color:var(--tx);font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;text-align:center}
+.nt.on{border-color:var(--r)}.nt svg{display:block;margin:0 auto 6px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px}
+h2{font-size:1.4rem;margin:0 0 10px}
+label{display:block;font-size:1rem;color:var(--mut);margin:10px 0 4px}
+input,textarea,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chip{border:1px solid var(--bd);background:var(--soft);color:var(--r);padding:6px 12px;border-radius:99px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
+.res{background:var(--soft);border-radius:14px;padding:12px;margin-top:8px}.res .big{font-size:1.7rem;font-weight:800;color:var(--g)}.res small{color:var(--mut)}
+.btn{background:var(--r);color:#fff;border:0;border-radius:12px;padding:13px 14px;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;display:inline-block;text-align:center}
+.btn.o{background:transparent;color:var(--r);border:1px solid var(--r)}.btn.k{background:var(--g)}.btn:disabled{opacity:.4}
+.full{width:100%}.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.acts .btn{padding:9px 12px;font-size:.88rem}
+.seg{display:flex;background:var(--bg);border-radius:12px;padding:4px;margin-bottom:10px}
+.seg button{flex:1;padding:9px;border:0;border-radius:9px;background:transparent;color:var(--mut);font:inherit;font-weight:600;cursor:pointer}.seg button.on{background:var(--r);color:#fff}
+.sw{display:flex;align-items:center;gap:12px;margin:14px 0;cursor:pointer}.sw input{display:none}
+.sw i{width:50px;height:28px;border-radius:99px;background:var(--bd);position:relative;flex:none;transition:.2s}
+.sw i:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
+.sw input:checked+i{background:var(--g)}.sw input:checked+i:after{left:25px}
+.warn{background:var(--warn);color:var(--warnt);border-radius:12px;padding:10px 12px;font-size:.86rem;margin:10px 0}
+.ok{background:var(--g);color:#fff;border-radius:12px;padding:8px 12px;font-size:.86rem;margin:8px 0}
+.err{color:var(--r);font-size:.86rem;margin-top:6px;min-height:1em}
+.tx{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--bd)}.tx:first-of-type{border-top:0}.tx small{color:var(--mut);display:block}.tx .a{text-align:right;font-weight:700}
+.st{font-size:.7rem;padding:2px 8px;border-radius:99px;font-weight:700}.pend{background:var(--warn);color:var(--warnt)}.paid{background:var(--g);color:#fff}
+.tid{font-family:ui-monospace,Menlo,monospace;font-weight:700;color:var(--r)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:.9rem;margin:8px 0}.kv span{color:var(--mut)}.kv b{word-break:break-word}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}.stats div{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:10px 4px;text-align:center}.stats b{display:block;font-size:1.05rem}.stats small{color:var(--mut);font-size:.72rem}
+.m{padding:10px 12px;border-radius:14px;margin:6px 0;max-width:88%;font-size:.92rem}.m small{display:block;opacity:.7;font-size:.72rem}.m.in{background:var(--soft)}.m.out{background:var(--r);color:#fff;margin-left:auto}
+.step{display:flex;gap:10px;margin:10px 0;font-size:1.08rem}.step i{flex:none;width:24px;height:24px;border-radius:50%;background:var(--r);color:#fff;display:grid;place-items:center;font-style:normal;font-size:.8rem;font-weight:700}
+code{background:var(--bg);padding:3px 7px;border-radius:7px;color:var(--tx);word-break:break-all;font-weight:700}
+.show{border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#1b0a0e,#4a0614);color:#fff;margin-bottom:12px;position:relative;min-height:190px}
+.sl{position:absolute;inset:0;display:flex;align-items:center;gap:12px;padding:14px;opacity:0;transition:opacity .5s}.sl.on{opacity:1}
+.ph{flex:none;width:92px;height:150px;border-radius:16px;border:3px solid #fff;background:#0b0b0b;padding:8px 6px;font-family:ui-monospace,Menlo,monospace;font-size:.68rem;color:#6dff9b;word-break:break-all;position:relative}
+.ph:before{content:"";position:absolute;top:3px;left:50%;width:26px;height:4px;margin-left:-13px;border-radius:9px;background:#333}.ph div{margin-top:8px}
+.ch{font-size:2.8rem;animation:bob 1.4s infinite ease-in-out}@keyframes bob{50%{transform:translateY(-6px)}}
+.sl b{font-size:1.05rem;display:block;margin-bottom:4px}.sl p{margin:0;font-size:.86rem;opacity:.9}
+.dots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:5px}.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35)}.dots i.on{background:#fff}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);display:flex;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;background:none;border:0;color:var(--mut);font:inherit;font-size:.9rem;padding:4px;cursor:pointer}nav button span{display:block;font-size:1.3rem}nav button.on{color:var(--r);font-weight:700}
+details{margin-top:6px;font-size:.86rem}summary{cursor:pointer;color:var(--r);font-weight:600}pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:8px;border-radius:10px;margin:6px 0 0;font-family:inherit}
+#play{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;background:linear-gradient(180deg,#2b0610 0%,#7a0a22 55%,#e4002b 100%);color:#fff;padding-top:env(safe-area-inset-top,0px)}#play.hide{display:none}.pbar{display:flex;justify-content:space-between;align-items:center;padding:10px 16px}.pbar b{font-size:1.6rem}.px{width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.22);color:#fff;font-size:1.4rem;cursor:pointer}.pbd{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 18px;min-height:0}.hw{font-family:'Segoe Script','Bradley Hand','Comic Sans MS','Brush Script MT',cursive;font-size:clamp(1.3rem,6.2vw,2rem);line-height:1.3;clip-path:inset(0 100% 0 0);animation:wr 1s steps(22,end) forwards}.hw.big{font-size:clamp(1.9rem,9.5vw,2.9rem);color:#ffe27a}@keyframes wr{to{clip-path:inset(0 0 0 0)}}.pcv{height:44%;flex:none}.pcv svg{width:100%;height:100%;display:block;animation:bob2 2s infinite ease-in-out}@keyframes bob2{50%{transform:translateY(-6px)}}.pfoot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 14px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(0,0,0,.4)}.pfoot a{background:#fff;color:#e4002b;text-decoration:none;font-weight:700;text-align:center;padding:14px 4px;border-radius:14px;font-size:1.1rem}.arm,.fc,.tk{display:none}.sc0 .aw,.sc2 .aw,.sc1 .ap,.sc3 .as,.sc4 .ac,.sc0 .fn,.sc1 .fn,.sc2 .fn,.sc3 .fs,.sc4 .fh{display:inline}.sc4 .tk{display:flex}.tk{margin:12px 0 0;width:150px;height:150px;border-radius:50%;background:#1fc653;box-shadow:0 0 0 8px rgba(255,255,255,.28);align-items:center;justify-content:center;animation:pop .7s ease-out both}.tk svg{width:100px;height:100px}.tk path{stroke:#fff;stroke-width:14;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:120;stroke-dashoffset:120;animation:dr .6s .4s forwards}@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}@keyframes dr{to{stroke-dashoffset:0}}.cf{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}.cf i{position:absolute;top:-24px;width:10px;height:16px;border-radius:2px;animation:fall 2.8s linear infinite}@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.hide{display:none}
+.hero{background:linear-gradient(120deg,var(--r),var(--r2));color:#fff;border-radius:20px;padding:20px;margin-bottom:14px}.hero h1{margin:0;font-size:2.8rem;line-height:1.1}.hs{margin:4px 0 14px;font-size:1.25rem;opacity:.95}.hl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.hl div{background:rgba(255,255,255,.16);border-radius:14px;padding:10px 4px;text-align:center}.hl span{display:block;font-size:.95rem;opacity:.9}.hl b{display:block;font-size:.98rem;margin-top:2px;word-break:break-word}.hf{margin:12px 0;font-size:1.15rem;font-weight:700}.hb{width:100%;padding:14px;border-radius:14px;border:0;background:#fff;color:var(--r);font:inherit;font-size:1.25rem;font-weight:700;cursor:pointer}
+footer{text-align:center;color:var(--mut);font-size:.95rem;padding:6px 0 20px}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="top"><div class="av" id="av">A</div><div><b id="hi">Hi, there</b><small>AirtimePro</small></div><div class="sp"></div><button class="ib" id="sh" title="Share">⤴</button></div>
+
+<section id="home">
+ <div class="wal"><small>Cash received</small><div class="amt" id="wb">KSh 0</div><div class="wb"><button id="b1">Sell airtime</button><button id="b2">Helpline</button></div></div>
+ <div class="hero"><h1>AirtimePro</h1><p class="hs">Turn your airtime into M-Pesa cash</p><p class="hs" style="font-size:1.15rem;margin:0 0 6px">Safaricom · Airtel · Telkom</p><p class="hf">10% fee on every transaction · Minimum KSh 500</p><button class="hb" id="sh2">Share AirtimePro</button></div>
+ <div class="card"><h2>Which airtime are you sending?</h2><div class="nets" id="nets"></div></div>
+ <div class="card hide" id="ins"></div>
+ <div class="show" id="show"></div>
+ <div class="card" id="calc"><h2>Payout calculator</h2>
+  <label for="ca">Airtime to send (KSh, minimum 500)</label><input id="ca" type="number" inputmode="numeric" min="500" placeholder="500">
+  <div class="chips" id="cc"></div>
+  <div class="res"><small>You receive on M-Pesa</small><div class="big" id="cr">KSh 0</div><small id="cf">Fee (10%): KSh 0</small></div></div>
+ <div class="card" id="help"><h2>Helpline</h2><div class="seg" id="hs"><button class="on" data-h="call">Call</button><button data-h="email">Email</button><button data-h="sms">SMS</button></div><div id="hb"></div></div>
+ <div class="card"><h2>Recent transactions</h2><div id="tl"></div></div>
+</section>
+
+<section id="sell" class="hide">
+ <div class="card"><h2>1. Choose network and amount</h2>
+  <div class="seg" id="ns"></div>
+  <p style="margin:0;color:var(--mut)">Send airtime to: <b class="tid" id="rl"></b></p>
+  <label for="am">Airtime amount (KSh, minimum 500)</label><input id="am" type="number" inputmode="numeric" min="500" placeholder="500">
+  <div class="res"><small>You will receive on M-Pesa</small><div class="big" id="pay">KSh 0</div><small id="pf">Fee (10%): KSh 0</small></div></div>
+ <div class="card"><h2>2. Your details</h2>
+  <label for="nm">Full name</label><input id="nm" autocomplete="name" placeholder="e.g. Oliver Maina">
+  <label for="sp">Phone you sent airtime from</label><input id="sp" type="tel" inputmode="tel" placeholder="07XX XXX XXX">
+  <label for="mp">M-Pesa number to receive cash</label><input id="mp" type="tel" inputmode="tel" placeholder="07XX XXX XXX">
+  <label for="mn">Name registered on that M-Pesa</label><input id="mn">
+  <div class="warn">We pay exactly the M-Pesa number and name you type here.</div></div>
+ <div class="card"><h2>3. Proof of sending</h2>
+  <label for="pf2">Paste the confirmation SMS you got after sending</label><textarea id="pf2" rows="4" placeholder="Paste the message from your network here"></textarea>
+  <div id="ck"></div>
+  <label class="sw"><input type="checkbox" id="sent"><i></i><span id="sl">I confirm I sent the airtime to the correct number</span></label>
+  <button class="btn full" id="go" disabled>Submit and get my receipt</button><div class="err" id="er"></div></div>
+ <div class="card hide" id="rc"></div>
+</section>
+
+<section id="inbox" class="hide">
+ <div class="card"><h2>Messages</h2><div id="ml"></div></div>
+ <div class="card"><h2>Message admin</h2><label for="mt">Transaction</label><select id="mt"></select><label for="mx">Message</label><textarea id="mx" rows="3"></textarea><button class="btn full" id="ms" style="margin-top:10px">Send</button><div class="err" id="me"></div></div>
+</section>
+
+<section id="admin" class="hide">
+ <div class="card" id="lock"><h2>Admin sign in</h2><label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric"><button class="btn full" id="in" style="margin-top:12px">Open panel</button><div class="err" id="pe"></div></div>
+ <div id="panel" class="hide">
+  <div class="stats"><div><b id="s1">0</b><small>Pending</small></div><div><b id="s2">0</b><small>Paid</small></div><div><b id="s3">0</b><small>To pay</small></div><div><b id="s4">0</b><small>Fees</small></div></div>
+  <div class="card"><h2>Add a request</h2><p style="margin:0 0 6px;color:var(--mut);font-size:.88rem">Paste the request you received by SMS or email.</p><textarea id="pt" rows="4"></textarea><button class="btn full" id="ad" style="margin-top:8px">Add to list</button><div class="err" id="ae"></div></div>
+  <div id="lst"></div>
+  <div class="warn">Check the telco SMS on your line shows the airtime from the sender before paying.</div>
+ </div>
+</section>
+<footer id="ft">© 2026 AirtimePro · Powered by Neflixx Services, Nairobi</footer>
+</div>
+<div id='play' class='hide'><div class='pbar'><b>Helpline</b><button class='px' id='px'>✕</button></div><div class='pbd' id='bd'></div><div class='cf' id='cf'></div><div class='pcv'><svg viewBox='0 0 300 340' preserveAspectRatio='xMidYMax meet'><ellipse cx='150' cy='132' rx='60' ry='64' fill='#1a1010'/><rect x='136' y='164' width='28' height='40' fill='#b9774f'/><path d='M64 340 L74 240 Q78 204 116 198 L184 198 Q222 204 226 240 L236 340 Z' fill='#fff'/><text x='150' y='272' text-anchor='middle' font-family='Arial,sans-serif' font-weight='800' font-size='21' fill='#e4002b'>AirtimePro</text><g class='arm aw'><path d='M215 224 L262 160' stroke='#b9774f' stroke-width='22' stroke-linecap='round'/><circle cx='265' cy='155' r='13' fill='#b9774f'/><path d='M268 150 L286 124' stroke='#222' stroke-width='4' stroke-linecap='round'/><path d='M85 224 L72 300' stroke='#b9774f' stroke-width='22' stroke-linecap='round'/><circle cx='71' cy='304' r='13' fill='#b9774f'/></g><g class='arm ap'><path d='M215 224 L250 192' stroke='#b9774f' stroke-width='22' stroke-linecap='round'/><rect x='236' y='112' width='46' height='80' rx='9' fill='#111' stroke='#fff' stroke-width='3'/><rect x='242' y='122' width='34' height='52' rx='3' fill='#6dff9b'/><text x='259' y='153' font-size='9' text-anchor='middle' fill='#063' font-family='monospace'>*140#</text><circle cx='252' cy='190' r='13' fill='#b9774f'/><path d='M85 224 L72 300' stroke='#b9774f' stroke-width='22' stroke-linecap='round'/><circle cx='71' cy='304' r='13' fill='#b9774f'/></g><g class='arm as'><path d='M85 224 L92 160' stroke='#b9774f' stroke-width='22' stroke-linecap='round'/><circle cx='92' cy='150' r='14' fill='#b9774f'/><path d='M215 224 L208 160' stroke='#b9774f' stroke-width='22' stroke-linecap='round'/><circle cx='208' cy='150' r='14' fill='#b9774f'/></g><g class='arm ac'><path d='M85 224 L52 124' stroke='#b9774f' stroke-width='22' stroke-linecap='round'/><circle cx='50' cy='112' r='14' fill='#b9774f'/><path d='M215 224 L248 124' stroke='#b9774f' stroke-width='22' stroke-linecap='round'/><circle cx='250' cy='112' r='14' fill='#b9774f'/></g><circle cx='88' cy='226' r='26' fill='#fff'/><circle cx='212' cy='226' r='26' fill='#fff'/><circle cx='150' cy='120' r='50' fill='#b9774f'/><path d='M99 112 Q100 62 150 60 Q200 62 201 112 Z' fill='#14213d'/><path d='M96 112 Q160 100 234 116 Q222 128 150 120 Q112 118 96 112Z' fill='#0d1730'/><text x='150' y='94' text-anchor='middle' font-family='Arial,sans-serif' font-weight='800' font-size='12' fill='#fff'>AirtimePro</text><circle cx='116' cy='148' r='8' fill='#e8806a' opacity='.5'/><circle cx='184' cy='148' r='8' fill='#e8806a' opacity='.5'/><g class='fc fn'><circle cx='128' cy='136' r='5' fill='#222'/><circle cx='172' cy='136' r='5' fill='#222'/><path d='M130 152 Q150 170 170 152' stroke='#7a1f1f' stroke-width='4' fill='none' stroke-linecap='round'/></g><g class='fc fs'><circle cx='128' cy='136' r='10' fill='#fff'/><circle cx='172' cy='136' r='10' fill='#fff'/><circle cx='128' cy='136' r='4' fill='#222'/><circle cx='172' cy='136' r='4' fill='#222'/><ellipse cx='150' cy='160' rx='9' ry='12' fill='#5a1010'/></g><g class='fc fh'><path d='M120 138 Q128 126 136 138' stroke='#222' stroke-width='4' fill='none' stroke-linecap='round'/><path d='M164 138 Q172 126 180 138' stroke='#222' stroke-width='4' fill='none' stroke-linecap='round'/><path d='M128 150 Q150 182 172 150 Z' fill='#5a1010'/></g></svg></div><div class='pfoot'><a href='tel:+254738512820'>📞 Call</a><a href='mailto:airtimecash@gmail.com?subject=AirtimePro%20help'>✉️ Email</a><a href='sms:+254738512820?body=Hello%20AirtimePro%2C%20I%20need%20help.'>💬 SMS</a></div></div>
+<nav><button class="on" data-v="home"><span>🏠</span>Home</button><button data-v="sell"><span>📲</span>Sell</button><button data-v="inbox"><span>💬</span>Inbox</button></nav>
+
+<script>
+var HELP="0738512820",INTL="+254738512820",MAIL="airtimecash@gmail.com",FEE=10,MIN=500,PIN="2468",hm="call",cur="safaricom";
+// Receiving lines per network. Leave "" if you have none (customers are told to call the helpline).
+var NET={
+ safaricom:{n:"Safaricom",c:"#1fa84a",l:"0768579396",steps:function(a,l){return[["Dial ",'*140*'+a+'*'+l+'#'," and press call (Sambaza)."],["Or dial ","*456#",", choose Okoa / Sambaza / Please Call Me, then Sambaza Airtime."],["Only Safaricom lines can send to this number."]]}},
+ airtel:{n:"Airtel",c:"#e4002b",l:"0738512820",steps:function(a,l){return[["Dial ","*140#"," and follow the Me2U prompts."],["Enter the receiving Airtel number "+l+" and the amount "+a+"."],["Only Airtel lines can send to this number."]]}},
+ telkom:{n:"Telkom",c:"#0a6fb8",l:"",steps:function(a,l){return[["Pasha: dial ","*140#",", enter the amount, then the Telkom number."],["T-kash: dial ","*334#",", choose Buy Airtime, then the option for another number."],["Only Telkom lines can send to a Telkom number."]]}}
+};
+var $=function(i){return document.getElementById(i)};
+function ld(k){try{return JSON.parse(localStorage.getItem(k)||"[]")}catch(e){return []}}
+function sv(k,a){try{localStorage.setItem(k,JSON.stringify(a))}catch(e){}}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function ph(s){var d=String(s).replace(/\D/g,"");if(d.indexOf("254")===0)d="0"+d.slice(3);return /^0[71]\d{8}$/.test(d)?d:""}
+function kes(n){return "KSh "+Math.round(n).toLocaleString("en-KE")}
+function rec(a){return Math.round(a*(100-FEE)/100)}
+function fmt(t){return new Date(t).toLocaleString("en-KE",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}
+function rid(p){var l=ld("ap_tx"),x;do{x=p+"-"+Date.now().toString(36).toUpperCase().slice(-5)+Math.random().toString(36).toUpperCase().slice(2,6)}while(l.some(function(t){return t.id===x||t.pr2===x}));return x}
+function logo(k){var n=NET[k];return '<svg width="64" height="40" viewBox="0 0 64 40"><rect width="64" height="40" rx="10" fill="'+n.c+'"/><text x="32" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="system-ui,sans-serif">'+n.n.toLowerCase()+'</text></svg>'}
+function lineOf(k){return NET[k].l||HELP}
+function view(v){["home","sell","inbox","admin"].forEach(function(s){$(s).classList.toggle("hide",s!==v)});
+ document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.v===v)});window.scrollTo(0,0);if(v==="inbox")rm();if(v==="home")rh();if(v==="sell")rs()}
+document.querySelectorAll("nav button").forEach(function(b){b.onclick=function(){view(b.dataset.v)}});
+$("b1").onclick=function(){view("sell")};$("b2").onclick=function(){popen()};
+function rn(){$("nets").innerHTML=Object.keys(NET).map(function(k){return '<button class="nt'+(k===cur&&!$("ins").classList.contains("hide")?' on':'')+'" data-k="'+k+'">'+logo(k)+NET[k].n+'</button>'}).join("");
+ document.querySelectorAll(".nt").forEach(function(b){b.onclick=function(){cur=b.dataset.k;ri();rn();$("ins").scrollIntoView({behavior:"smooth"})}})}
+function ri(){var n=NET[cur],l=lineOf(cur),st=n.steps(MIN,l);$("ins").classList.remove("hide");
+ var h='<div style="display:flex;gap:10px;align-items:center">'+logo(cur)+'<div><h2 style="margin:0">Send '+n.n+' airtime</h2><small style="color:var(--mut)">To: <b class="tid">'+l+'</b></small></div></div>';
+ if(!n.l)h+='<div class="warn">No '+n.n+' receiving line is set yet. Call the helpline on '+HELP+' to get one before sending.</div>';
+ h+=st.map(function(s,i){var t=s.length===3?esc(s[0])+'<code>'+esc(s[1])+'</code>'+esc(s[2]):esc(s[0]);return '<div class="step"><i>'+(i+1)+'</i><div>'+t+'</div></div>'}).join("");
+ h+='<div class="step"><i>'+(st.length+1)+'</i><div>Copy the confirmation SMS you receive, then tap the button below.</div></div><button class="btn full" id="sn">I have sent it</button>';
+ $("ins").innerHTML=h;$("sn").onclick=function(){view("sell")}}
+var SL=[["📱🧑🏾","Pick your network","Safaricom, Airtel or Telkom. Open the steps.","Choose network"],["📞🧑🏾","Dial the code","Send at least KSh 500 airtime to our line.","*140*500*NUMBER#"],["📋🧑🏾","Paste your SMS","Paste the confirmation message as proof.","You have sent KSh 500 ... Ref ABC123"],["💰🧑🏾","Get M-Pesa cash","We pay 90% to your M-Pesa after checking.","M-PESA: Received KSh 450"]],si=0,tm;
+$("show").innerHTML=SL.map(function(s,i){return '<div class="sl"><div class="ph"><div class="ty"></div></div><div><div class="ch">'+s[0]+'</div><b>'+s[1]+'</b><p>'+s[2]+'</p></div></div>'}).join("")+'<div class="dots">'+SL.map(function(){return '<i></i>'}).join("")+'</div>';
+function slide(){var a=document.querySelectorAll(".sl"),d=document.querySelectorAll(".dots i");a.forEach(function(e,i){e.classList.toggle("on",i===si);d[i].classList.toggle("on",i===si)});
+ var el=a[si].querySelector(".ty"),t=SL[si][3],k=0;el.textContent="";clearInterval(tm);tm=setInterval(function(){k++;el.textContent=t.slice(0,k);if(k>=t.length)clearInterval(tm)},55);
+ si=(si+1)%SL.length}
+slide();setInterval(slide,4800);
+function cu(){var n=parseFloat($("ca").value)||0;$("cr").textContent=kes(rec(n));$("cf").textContent="Fee ("+FEE+"%): "+kes(Math.round(n*FEE/100))}
+$("cc").innerHTML=[500,1000,2000,5000].map(function(n){return '<button class="chip" data-n="'+n+'">'+n.toLocaleString()+'</button>'}).join("");
+document.querySelectorAll("#cc .chip").forEach(function(c){c.onclick=function(){$("ca").value=c.dataset.n;cu()}});$("ca").oninput=cu;
+function hh(){document.querySelectorAll("#hs button").forEach(function(b){b.classList.toggle("on",b.dataset.h===hm)});
+ var m={call:['Talk to us now','tel:'+INTL,'Call '+HELP],email:['Write to '+MAIL,'mailto:'+MAIL+'?subject=AirtimePro%20help','Email us'],sms:['Send us a text','sms:'+INTL+'?body='+encodeURIComponent("Hello AirtimePro, I need help."),'SMS '+HELP]}[hm];
+ $("hb").innerHTML='<p style="margin:0 0 8px;color:var(--mut)">'+m[0]+'</p><a class="btn full" href="'+m[1]+'">'+m[2]+'</a><button class="btn o full" style="margin-top:8px" onclick="popen()">▶ Watch how it works</button>'}
+document.querySelectorAll("#hs button").forEach(function(b){b.onclick=function(){hm=b.dataset.h;hh()}});
+function share(){var d={title:"AirtimePro",text:"Turn airtime into M-Pesa cash with AirtimePro.",url:location.href};
+ if(navigator.share)navigator.share(d).catch(function(){});else if(navigator.clipboard)navigator.clipboard.writeText(d.text+" "+d.url).then(function(){alert("Link copied. Paste it to share.")})};
+function rh(){var l=ld("ap_tx");$("wb").textContent=kes(l.filter(function(t){return t.st==="paid"}).reduce(function(a,t){return a+t.pay},0));
+ if(l[0]){$("hi").textContent="Hi, "+l[0].name.split(" ")[0];$("av").textContent=l[0].name.charAt(0).toUpperCase()}
+ $("tl").innerHTML=l.length?l.slice(0,6).map(function(t){return '<div class="tx"><div><b>'+esc(t.net)+' airtime</b><small>'+fmt(t.at)+' · <span class="tid">'+esc(t.id)+'</span></small></div><div class="a">'+kes(t.pay)+'<br><span class="st '+(t.st==="paid"?"paid":"pend")+'">'+(t.st==="paid"?"PAID":"PENDING")+'</span></div></div>'}).join(""):'<p style="color:var(--mut);margin:0">No transactions yet.</p>'}
+function rs(){$("ns").innerHTML=Object.keys(NET).map(function(k){return '<button data-k="'+k+'" class="'+(k===cur?'on':'')+'">'+NET[k].n+'</button>'}).join("");
+ document.querySelectorAll("#ns button").forEach(function(b){b.onclick=function(){cur=b.dataset.k;rs()}});
+ $("rl").textContent=lineOf(cur);$("sl").textContent="I confirm I sent the airtime to "+lineOf(cur);pc()}
+function check(){var a=parseInt($("am").value,10)||0,t=$("pf2").value,l=lineOf(cur),r={ok:false,a:false,n:false,has:!!t.trim()};
+ var nums=(t.replace(/,/g,"").match(/\d+(\.\d+)?/g)||[]).map(parseFloat);r.a=a>0&&nums.indexOf(a)>-1;
+ r.n=t.replace(/\D/g,"").indexOf(l.slice(1))>-1;r.ok=r.a&&r.n;return r}
+function pc(){var a=parseFloat($("am").value)||0;$("pay").textContent=kes(rec(a));$("pf").textContent="Fee ("+FEE+"%): "+kes(Math.round(a*FEE/100));var r=check();
+ $("ck").innerHTML=!r.has?"":(r.ok?'<div class="ok">Proof matches: amount and number found.</div>':'<div class="warn">'+(r.a?"":"Amount "+kes(a)+" not found. ")+(r.n?"":"Number "+lineOf(cur)+" not found. ")+'Admin will check it manually.</div>')}
+["am","pf2"].forEach(function(i){$(i).oninput=pc});$("sent").onchange=function(){$("go").disabled=!$("sent").checked};
+function msg(t){return "AIRTIMEPRO REQUEST\nReceipt: "+t.id+"\nName: "+t.name+"\nNetwork: "+t.net+"\nAirtime: KSh "+t.amt+"\nSent to: "+t.to+"\nSent from: "+t.sp+"\nPay to: "+t.mp+"\nM-Pesa name: "+t.mn+"\nFee: KSh "+(t.amt-t.pay)+"\nPayout: KSh "+t.pay+"\nCheck: "+(t.ck?"MATCH":"MANUAL")+"\nConfirmation: I confirm I sent KSh "+t.amt+" to "+t.to+" from "+t.sp+".\nProof: "+(t.pr||"").replace(/\s+/g," ")+"\nTime: "+fmt(t.at)}
+$("go").onclick=function(){
+ var t={name:$("nm").value.trim(),net:NET[cur].n,amt:parseInt($("am").value,10)||0,to:lineOf(cur),sp:ph($("sp").value),mp:ph($("mp").value),mn:$("mn").value.trim(),pr:$("pf2").value.trim(),at:Date.now(),st:"pending"},e="";
+ if(t.amt<MIN)e="Minimum conversion is KSh "+MIN+".";else if(t.name.length<3)e="Enter your full name.";else if(!t.sp)e="Enter a valid sender phone.";else if(!t.mp)e="Enter a valid M-Pesa number.";else if(t.mn.length<3)e="Enter the M-Pesa registered name.";else if(t.pr.length<10)e="Paste the confirmation SMS as proof.";
+ $("er").textContent=e;if(e)return;
+ t.id=rid("AP");t.pay=rec(t.amt);t.ck=check().ok;var l=ld("ap_tx");l.unshift(t);sv("ap_tx",l);
+ var ms=ld("ap_msg");ms.push({tid:t.id,from:"sys",text:"Receipt "+t.id+" created. You confirmed sending "+kes(t.amt)+" to "+t.to+". You will get "+kes(t.pay)+" on M-Pesa "+t.mp+" after admin checks.",at:Date.now()});sv("ap_msg",ms);
+ var m=msg(t);$("rc").classList.remove("hide");
+ $("rc").innerHTML='<h2>Receipt</h2><div class="tid" style="font-size:1.2rem">'+esc(t.id)+'</div><div class="kv"><span>Network</span><b>'+esc(t.net)+'</b><span>Airtime</span><b>'+kes(t.amt)+'</b><span>Sent to</span><b>'+esc(t.to)+'</b><span>Sent from</span><b>'+esc(t.sp)+'</b><span>Fee 10%</span><b>'+kes(t.amt-t.pay)+'</b><span>You get</span><b>'+kes(t.pay)+'</b><span>Pay to</span><b>'+esc(t.mp)+' ('+esc(t.mn)+')</b><span>Proof</span><b>'+(t.ck?"Matched":"Manual check")+'</b><span>Time</span><b>'+fmt(t.at)+'</b></div><div class="warn">Last step: send this receipt and proof to admin.</div><div class="acts"><a class="btn" href="sms:'+INTL+'?body='+encodeURIComponent(m)+'">Send by SMS</a><a class="btn o" href="mailto:'+MAIL+'?subject='+encodeURIComponent("AirtimePro receipt "+t.id)+'&body='+encodeURIComponent(m)+'">Send by email</a></div>';
+ $("rc").scrollIntoView({behavior:"smooth"})};
+function rm(){var ids=ld("ap_tx").map(function(t){return t.id});
+ $("mt").innerHTML=ids.length?ids.map(function(i){return '<option>'+esc(i)+'</option>'}).join(""):'<option value="">No transactions</option>';
+ var ms=ld("ap_msg").filter(function(m){return ids.indexOf(m.tid)>-1}).sort(function(a,b){return a.at-b.at});
+ $("ml").innerHTML=ms.length?ms.map(function(m){return '<div class="m '+(m.from==="you"?"out":"in")+'"><small>'+esc(m.tid)+' · '+fmt(m.at)+'</small>'+esc(m.text)+'</div>'}).join(""):'<p style="color:var(--mut);margin:0">No messages yet.</p>'}
+$("ms").onclick=function(){var x=$("mx").value.trim(),t=$("mt").value;if(!t||!x){$("me").textContent="Pick a transaction and type a message.";return}
+ var ms=ld("ap_msg");ms.push({tid:t,from:"you",text:x,at:Date.now()});sv("ap_msg",ms);$("mx").value="";$("me").textContent="";rm()};
+function pm(s){var g=function(k){var r=new RegExp("^"+k+":\\s*(.+)","im").exec(s);return r?r[1].trim():""};
+ var id=g("Receipt"),a=parseInt(g("Airtime").replace(/\D/g,""),10)||0;if(!id||!a||!g("Pay to"))return null;
+ return {id:id,name:g("Name"),net:g("Network"),amt:a,to:g("Sent to"),sp:g("Sent from"),mp:g("Pay to"),mn:g("M-Pesa name"),pr:g("Proof"),ck:/MATCH/i.test(g("Check")),pay:rec(a),at:Date.now(),st:"pending"}}
+function ra(){var l=ld("ap_tx"),p=l.filter(function(t){return t.st==="pending"}),d=l.filter(function(t){return t.st==="paid"});
+ $("s1").textContent=p.length;$("s2").textContent=d.length;$("s3").textContent=p.reduce(function(a,t){return a+t.pay},0).toLocaleString("en-KE");$("s4").textContent=d.reduce(function(a,t){return a+t.amt-t.pay},0).toLocaleString("en-KE");
+ $("lst").innerHTML=l.length?l.map(function(t,i){return '<div class="card"><div style="display:flex;justify-content:space-between"><span class="tid">'+esc(t.id)+'</span><span class="st '+(t.st==="paid"?"paid":"pend")+'">'+(t.st==="paid"?"PAID "+esc(t.pr2||""):"PENDING")+'</span></div><div class="kv"><span>Customer</span><b>'+esc(t.name)+'</b><span>Network</span><b>'+esc(t.net)+' · '+kes(t.amt)+'</b><span>Sender</span><b>'+esc(t.sp)+'</b><span>Receiver</span><b>'+esc(t.to)+'</b><span>Pay '+kes(t.pay)+' to</span><b>'+esc(t.mp)+'</b><span>M-Pesa name</span><b>'+esc(t.mn)+'</b><span>Proof</span><b>'+(t.ck?"Matched":"Check manually")+'</b><span>Time</span><b>'+fmt(t.at)+'</b></div><details><summary>View proof message</summary><pre>'+esc(t.pr||"None")+'</pre></details><div class="acts">'+(t.st!=="paid"?'<button class="btn k" data-a="paid" data-i="'+i+'">Mark paid</button><button class="btn o" data-a="rem" data-i="'+i+'">Remind</button>':'')+'<button class="btn o" data-a="msg" data-i="'+i+'">Message</button><a class="btn o" href="tel:'+esc(t.sp)+'">Call</a><button class="btn o" data-a="del" data-i="'+i+'">Delete</button></div></div>'}).join(""):'<div class="card" style="text-align:center;color:var(--mut)">No requests yet.</div>';
+ document.querySelectorAll("#lst button").forEach(function(b){b.onclick=function(){var l=ld("ap_tx"),i=+b.dataset.i,t=l[i],a=b.dataset.a,ms=ld("ap_msg"),x="";
+  if(a==="paid"){t.st="paid";t.pr2=rid("PAY");x="Paid! "+kes(t.pay)+" sent to M-Pesa "+t.mp+". Payment receipt: "+t.pr2+". Thank you for using AirtimePro."}
+  else if(a==="rem")x="Reminder: we have not yet confirmed your KSh "+t.amt+" airtime on "+t.to+". Please send it or reply with your confirmation SMS.";
+  else if(a==="msg"){x=prompt("Message to "+t.name+":")||"";if(!x.trim())return}
+  else{if(!confirm("Delete this request?"))return;l.splice(i,1);sv("ap_tx",l);ra();return}
+  sv("ap_tx",l);ms.push({tid:t.id,from:"admin",text:x,at:Date.now()});sv("ap_msg",ms);ra()}})}
+$("in").onclick=function(){if($("pin").value===PIN){$("lock").classList.add("hide");$("panel").classList.remove("hide");ra()}else $("pe").textContent="Wrong PIN."};
+$("ad").onclick=function(){var t=pm($("pt").value);if(!t){$("ae").textContent="Could not read that request.";return}
+ var l=ld("ap_tx");if(l.some(function(x){return x.id===t.id})){$("ae").textContent="Already in the list.";return}
+ l.unshift(t);sv("ap_tx",l);$("pt").value="";$("ae").textContent="";ra()};
+var PL=[["Step 1","Pick your network","Safaricom · Airtel · Telkom"],["Step 2","Send the airtime","*140*500*NUMBER#"],["Step 3","Paste your SMS proof","then tap Submit"],["Wow!","We check your proof","and pay your M-Pesa"],["Recipient received!","Cash confirmed"]],PD=[4300,4300,4300,4300,5600],pi=0,plt;function pshow(){var c=pi;$("play").className="sc"+c;$("bd").innerHTML=PL[c].map(function(t,i){return '<div class="hw'+(i===0?' big':'')+'" style="animation-delay:'+(i*0.9)+'s">'+esc(t)+'</div>'}).join("")+'<div class="tk"><svg viewBox="0 0 100 100"><path d="M24 52 L43 70 L77 32"/></svg></div>';$("cf").innerHTML=c===4?Array.apply(null,Array(30)).map(function(_,i){return '<i style="left:'+(i*3.4)+'%;background:'+["#ffd54a","#35cf63","#fff","#ff6b81","#4fc3f7"][i%5]+';animation-delay:'+(i%7)*0.35+'s"></i>'}).join(""):"";pi=(c+1)%PL.length;plt=setTimeout(pshow,PD[c])}function popen(){clearTimeout(plt);pi=0;pshow()}function pclose(){clearTimeout(plt);$("play").className="hide";$("cf").innerHTML=""}hh();rh();rn();$("sh").onclick=share;$("px").onclick=pclose;$("sh2").onclick=share;var fc=0;$("ft").onclick=function(){fc++;if(fc>=5){fc=0;view("admin")}};function chk(){if(location.hash==="#admin")view("admin")}window.onhashchange=chk;chk();
+</script>
+</body>
+</html>
